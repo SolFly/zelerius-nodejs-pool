@@ -1,8 +1,7 @@
-cryptonote-nodejs-pool
+Zelerius mining pool (cryptonote-nodejs-pool)
 ======================
 
-High performance Node.js (with native C addons) mining pool for CryptoNote based coins. Comes with lightweight example front-end script which uses the pool's AJAX API. Support for Cryptonight (Original, Monero v7, Stellite v7), Cryptonight Light (Original, Aeon v7, IPBC) and Cryptonight Heavy (Sumokoin) algorithms.
-
+High performance Node.js (with native C addons) mining pool for Zelerius Network based on cryptonote-nodejs-pool.
 
 #### Table of Contents
 * [Features](#features)
@@ -31,7 +30,6 @@ Features
 * TCP (stratum-like) protocol for server-push based jobs
   * Compared to old HTTP protocol, this has a higher hash rate, lower network/CPU server load, lower orphan
     block percent, and less error prone
-* Support for Cryptonight (Original, Monero v7, Stellite v7), Cryptonight Light (Original, Aeon v7, IPBC) and Cryptonight Heavy (Sumokoin) algorithms.
 * IP banning to prevent low-diff share attacks
 * Socket flooding detection
 * Share trust algorithm to reduce share validation hashing CPU load
@@ -56,9 +54,7 @@ Features
 * Historic charts of users's hashrate and payments
 
 #### Mined blocks explorer
-* Mined blocks table with block status (pending, confirmed, and orphaned)
-* Blocks luck (shares/difficulty) statistics
-* Universal blocks and transactions explorer based on [chainradar.com](http://chainradar.com)
+* Not yet
 
 #### Smart payment processing
 * Splintered transactions to deal with max transaction size
@@ -94,34 +90,33 @@ Features
 Community / Support
 ===
 
-* [GitHub Wiki](https://github.com/dvandal/cryptonote-nodejs-pool/wiki)
-* [GitHub Issues](https://github.com/dvandal/cryptonote-nodejs-pool/issues)
-* [Telegram Group](http://t.me/CryptonotePool)
-
-#### Pools Using This Software
-
-* https://imaginary.stream/
-* https://graft.anypool.net/
-* https://graft.dark-mine.su/
-* http://itns.proxpool.com/
-* https://bytecoin.pt
-* http://ita.minexmr24.ru/
-* https://pool.croatpirineus.cat
+* [Telegram Group](http://t.me/Zelerius)
 
 Usage
 ===
 
 #### Requirements
-* Coin daemon(s) (find the coin's repo and build latest version from source)
-  * [List of Cryptonote coins](https://github.com/dvandal/cryptonote-nodejs-pool/wiki/Cryptonote-Coins)
+
 * [Node.js](http://nodejs.org/) v4.0+
-  * For Ubuntu: 
- ```
+  * For Ubuntu:
+```
   curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash
   sudo apt-get install -y nodejs
 ```
-* [Redis](http://redis.io/) key-value store v2.6+ 
-  * For Ubuntu: 
+
+  * install n to manage node version to use
+```
+  sudo npm install -g n
+```
+  use node's version 4.0.^
+```
+  sudo n lts (For example, long term support)
+```
+  you can change after to lastest node's LTS by running `sudo n [version to install]`
+  learn more with `n --help`
+
+* [Redis](http://redis.io/) key-value store v2.6+
+  * For Ubuntu:
 ```
 sudo add-apt-repository ppa:chris-lea/redis-server
 sudo apt-get update
@@ -144,7 +139,7 @@ you are using - a good place to start with redis is [data persistence](http://re
 ```bash
 sudo adduser --disabled-password --disabled-login your-user
 ```
-To login with this user : 
+To login with this user :
 ```
 sudo su - your-user
 ```
@@ -155,7 +150,7 @@ sudo su - your-user
 Clone the repository and run `npm update` for all the dependencies to be installed:
 
 ```bash
-git clone https://github.com/dvandal/cryptonote-nodejs-pool.git pool
+git clone https://github.com/zelerius/zelerius-nodejs-pool.git pool
 cd pool
 
 npm update
@@ -171,31 +166,32 @@ Explanation for each field:
 "poolHost": "your.pool.host",
 
 /* Used for storage in redis so multiple coins can share the same redis instance. */
-"coin": "graft",
+"coin": "zelerius",
 
 /* Used for front-end display */
-"symbol": "GRFT",
+"symbol": "ZLS",
 
-/* Minimum units in a single coin, see COIN constant in DAEMON_CODE/src/cryptonote_config.h */
-"coinUnits": 10000000000,
+/* Minimum units in a single coin*/
+"coinUnits": 1000000000000,
 
 /* Number of coin decimals places for notifications and front-end */
 "coinDecimalPlaces": 4,
-  
-/* Coin network time to mine one block, see DIFFICULTY_TARGET constant in DAEMON_CODE/src/cryptonote_config.h */
-"coinDifficultyTarget": 120,
 
-/* Set daemon type. Supported values: default, forknote (Fix block height + 1), bytecoin (ByteCoin Wallet RPC API) */
-"daemonType": "default",
+/* Coin network time to mine one block, 30 seconds for Zelerius*/
+"coinDifficultyTarget": 30,
+
+/* Set daemon type. Always "zelerius" */
+"deamonType": "zelerius",
 
 /* Set Cryptonight algorithm settings.
-   Supported algorithms: cryptonight (default). cryptonight_light and cryptonight_heavy
-   Supported variants for "cryptonight": 0 (Original), 1 (Monero v7), 3 (Stellite / XTL)
-   Supported variants for "cryptonight_light": 0 (Original), 1 (Aeon v7), 2 (IPBC)
-   Supported blob types: 0 (Cryptonote), 1 (Forknote v1), 2 (Forknote v2), 3 (Cryptonote v2 / Masari) */
+   Zelerius Network
+   algorithm: cryptonight
+   variants for "cryptonight": 1 (variant 1 (v7))
+   blob types: 2
+   */
 "cnAlgorithm": "cryptonight",
 "cnVariant": 1,
-"cnBlobType": 0,
+"cnBlobType": 2,
 
 /* Logging */
 "logging": {
@@ -232,21 +228,21 @@ Explanation for each field:
     "clusterForks": "auto",
 
     /* Address where block rewards go, and miner payments come from. */
-    "poolAddress": "GBqRuitSoU3PFPBAkXMEnLdBRWXH4iDSD6RDxnQiEFjVJhWUi1UuqfV5EzosmaXgpPGE6JJQjMYhZZgWY8EJQn8jQTsuTit",
+    "poolAddress": "Zelerius Address here",
 
     /* This is the integrated address prefix used for miner login validation. */
-    "intAddressPrefix": 91,
+    "intAddressPrefix": null,
 
     /* Poll RPC daemons for new blocks every this many milliseconds. */
     "blockRefreshInterval": 1000,
 
     /* How many seconds until we consider a miner disconnected. */
-    "minerTimeout": 900,
+    "minerTimeout": 600,
 
     "sslCert": "./cert.pem", // The SSL certificate
     "sslKey": "./privkey.pem", // The SSL private key
     "sslCA": "./chain.pem" // The SSL certificate authority chain
-    
+
     "ports": [
         {
             "port": 3333, // Port for mining apps to connect to
@@ -293,7 +289,7 @@ Explanation for each field:
         "variancePercent": 30, // Allow time to vary this % from target without retargeting
         "maxJump": 100 // Limit diff percent increase/decrease in a single retargeting
     },
-	
+
     /* Set difficulty on miner client side by passing <address> param with +<difficulty> postfix */
     "fixedDiff": {
         "enabled": true,
@@ -322,7 +318,7 @@ Explanation for each field:
         "invalidPercent": 25, // What percent of invalid shares triggers ban
         "checkThreshold": 30 // Perform check when this many shares have been submitted
     },
-    
+
     /* Slush Mining is a reward calculation technique which disincentivizes pool hopping and rewards 'loyal' miners by valuing younger shares higher than older shares. Remember adjusting the weight!
     More about it here: https://mining.bitcoin.cz/help/#!/manual/rewards */
     "slushMining": {
@@ -338,13 +334,13 @@ Explanation for each field:
     "maxAddresses": 50, // Split up payments if sending to more than this many addresses
     "mixin": 5, // Number of transactions yours is indistinguishable from
     "priority": 0, // The transaction priority    
-    "transferFee": 4000000000, // Fee to pay for each transaction
-    "dynamicTransferFee": true, // Enable dynamic transfer fee (fee is multiplied by number of miners)
+    "transferFee": 4000000000, // Fee to pay for each transaction. WARNING Zelerius network has dynamic fee, this amount will be discount of miner balance if minerPayFee is true, then the network fee could be more or less than this value.
     "minerPayFee" : true, // Miner pays the transfer fee instead of pool owner when using dynamic transfer fee
     "minPayment": 100000000000, // Miner balance required before sending payment
     "maxPayment": null, // Maximum miner balance allowed in miner settings
-    "maxTransactionAmount": 0, // Split transactions by this amount (to prevent "too big transaction" error)
-    "denomination": 10000000000 // Truncate to this precision and store remainder
+    "maxTransactionAmount": 2000000000000000, // Split transactions by this amount (to prevent "too big transaction" error)
+    "denomination": 1000000000, // Truncate to this precision and store remainder
+    "walletUserPassword": "user:password" //user and password for Zelerius walletd
 },
 
 /* Module that monitors the submitted block maturities and manages rounds. Confirmed
@@ -354,16 +350,11 @@ Explanation for each field:
     "enabled": true,
     "interval": 30, // How often to check block statuses in seconds
 
-    /* Block depth required for a block to unlocked/mature. Found in daemon source as
-       the variable CRYPTONOTE_MINED_MONEY_UNLOCK_WINDOW */
-    "depth": 60,
+    /* Block depth required for a block to unlocked/mature. Must be greater than 10*/
+    "depth": 20,
     "poolFee": 0.8, // 0.8% pool fee (1% total fee total including donations)
-    "devDonation": 0.2, // 0.2% donation to send to pool dev
-    "networkFee": 0.0, // Network/Governance fee (used by some coins like Loki)
-    
-    /* Some forknote coins have an issue with block height in RPC request, to fix you can enable this option.
-       See: https://github.com/forknote/forknote-pool/issues/48 */
-    "fixBlockHeightRPC": false
+    /* fixBlockHeightRPC always true */
+    "fixBlockHeightRPC": true
 },
 
 /* AJAX API used for front-end website. */
@@ -444,13 +435,13 @@ Explanation for each field:
     "enabled": false,
     "fromAddress": "your@email.com", // Your sender email
     "transport": "sendmail", // The transport mode (sendmail, smtp or mailgun)
-    
+
     // Configuration for sendmail transport
     // Documentation: http://nodemailer.com/transports/sendmail/
     "sendmail": {
         "path": "/usr/sbin/sendmail" // The path to sendmail command
     },
-    
+
     // Configuration for SMTP transport
     // Documentation: http://nodemailer.com/smtp/
     "smtp": {
@@ -465,7 +456,7 @@ Explanation for each field:
             "rejectUnauthorized": false // Reject unauthorized TLS/SSL certificate
         }
     },
-    
+
     // Configuration for MailGun transport
     "mailgun": {
         "key": "your-private-key", // Your MailGun Private API key
@@ -508,7 +499,7 @@ Explanation for each field:
     "source": "cryptonator", // Exchange (supported values: cryptonator, altex, crex24, cryptopia, stocks.exchange, tradeogre)
     "currency": "USD" // Default currency
 },
-	    
+
 /* Collect pool statistics to display in frontend charts  */
 "charts": {
     "pool": {
@@ -598,7 +589,7 @@ node init.js -module=api
 
 To keep your pool up, on operating system with systemd, you can create add your pool software as a service.  
 Use this [example](https://github.com/dvandal/cryptonote-nodejs-pool/blob/master/deployment/cryptonote-nodejs-pool.service) to create the systemd service `/lib/systemd/system/cryptonote-nodejs-pool.service`
-Then enable and start the service with the following commands : 
+Then enable and start the service with the following commands :
 
 ```
 sudo systemctl enable cryptonote-nodejs-pool.service
@@ -607,10 +598,10 @@ sudo systemctl start cryptonote-nodejs-pool.service
 
 #### 4) Host the front-end
 
-Simply host the contents of the `website_example` directory on file server capable of serving simple static files.
+Simply host the contents of the `website_example` directory on file server capable of serving simple static files. You can use `website_example_old` too.
 
 
-Edit the variables in the `website_example/config.js` file to use your pool's specific configuration.
+Edit the variables in the `website_example/config.js` or `website_example_old/config.js` file to use your pool's specific configuration.
 Variable explanations:
 
 ```javascript
@@ -637,10 +628,10 @@ var discord = "https://discordapp.com/invite/YourPool";
 var marketCurrencies = ["{symbol}-BTC", "{symbol}-USD", "{symbol}-EUR", "{symbol}-CAD"];
 
 /* Used for front-end block links. */
-var blockchainExplorer = "http://chainradar.com/{symbol}/block/{id}";
+var blockchainExplorer = "";
 
 /* Used by front-end transaction links. */
-var transactionExplorer = "http://chainradar.com/{symbol}/transaction/{id}";
+var transactionExplorer = "";
 
 /* Any custom CSS theme for pool frontend */
 var themeCss = "themes/light.css";
@@ -690,7 +681,7 @@ server {
     server_name api.poolhost.com
     listen 443 ssl http2;
     listen [::]:443 ssl http2;
-    
+
     ssl_certificate /your/ssl/certificate;
     ssl_certificate_key /your/ssl/certificate_key;
 
@@ -724,8 +715,8 @@ the Node.js modules, and any config files that may have been changed.
 ### JSON-RPC Commands from CLI
 
 Documentation for JSON-RPC commands can be found here:
-* Daemon https://wiki.bytecoin.org/wiki/JSON_RPC_API
-* Wallet https://wiki.bytecoin.org/wiki/Wallet_JSON_RPC_API
+* Daemon https://github.com/zelerius/Zelerius-Network/wiki/Zelerius-Node-Daemon-JSON-RPC-API
+* Wallet https://github.com/zelerius/Zelerius-Network/wiki/Zelerius-Wallet-Daemon-JSON-RPC-API
 
 
 Curl can be used to use the JSON-RPC commands from command-line. Here is an example of calling `getblockheaderbyheight` for block 100:
@@ -740,23 +731,6 @@ curl 127.0.0.1:18081/json_rpc -d '{"method":"getblockheaderbyheight","params":{"
 * To inspect and make changes to redis I suggest using [redis-commander](https://github.com/joeferner/redis-commander)
 * To monitor server load for CPU, Network, IO, etc - I suggest using [Netdata](https://github.com/firehol/netdata)
 * To keep your pool node script running in background, logging to file, and automatically restarting if it crashes - I suggest using [forever](https://github.com/nodejitsu/forever) or [PM2](https://github.com/Unitech/pm2)
-
-
-Donations
----------
-
-Thanks for supporting my works on this project! If you want to make a donation to [Daniel Vandal](https://github.com/dvandal/), the developper of this project, you can send any amount of your choice to one of theses addresses:
-
-* Bitcoin (BTC): `17XRyHm2gWAj2yfbyQgqxm25JGhvjYmQjm`
-* Bitcoin Cash (BCH): `qpl0gr8u3yu7z4nzep955fqy3w8m6w769sec08u3dp`
-* Ethereum (ETH): `0x83ECF65934690D132663F10a2088a550cA201353`
-* Litecoin (LTC): `LS9To9u2C95VPHKauRMEN5BLatC8C1k4F1`
-* Monero (XMR): `49WyMy9Q351C59dT913ieEgqWjaN12dWM5aYqJxSTZCZZj1La5twZtC3DyfUsmVD3tj2Zud7m6kqTVDauRz53FqA9zphHaj`
-* Graft (GRFT): `GBqRuitSoU3PFPBAkXMEnLdBRWXH4iDSD6RDxnQiEFjVJhWUi1UuqfV5EzosmaXgpPGE6JJQjMYhZZgWY8EJQn8jQTsuTit`
-* Haven (XHV): `hvxy2RAzE7NfXPLE3AmsuRaZztGDYckCJ14XMoWa6BUqGrGYicLCcjDEjhjGAQaAvHYGgPD7cGUwcYP7nEUs8u6w3uaap9UZTf`
-* IntenseCoin (ITNS): `iz4fRGV8XsRepDtnK8XQDpHc3TbtciQWQ5Z9285qihDkCAvB9VX1yKt6qUCY6sp2TCC252SQLHrjmeLuoXsv4aF42YZtnZQ53`
-* Masari (MSR): `5n7mffxVT9USrq7tcG3TM8HL5yAz7MirUWypXXJfHrNfTcjNtDouLAAGex8s8htu4vBpmMXFzay8KG3jYGMFhYPr2aMbN6i`
-* Stellite (XTL): `Se45GzgpFG3CnvYNwEFnxiRHD2x7YzRnhFLdxjUqXdbv3ysNbfW5U7aUdn87RgMRPM7xwN6CTbXNc7nL5QUgcww11bDeypTe1`
 
 
 Credits

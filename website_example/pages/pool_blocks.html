@@ -39,7 +39,7 @@
             </div>
         </div>
     </div>
-    
+
 </div>
 
 <!-- Chart -->
@@ -47,7 +47,6 @@
     <h4 id="blocksChartTitle">Blocks found</h4>
     <div class="chart" style="height:200px;">
         <canvas id="blocksChartObj"></canvas>
-        <a class="chart-style"></a>
     </div>
 </div>
 
@@ -133,18 +132,6 @@ function generateChart(data) {
         values.push(data[key]);
     }
 
-    var $chart = $('#blocksChartObj');
-    var bgcolor = null, bordercolor = null, borderwidth = null;
-    var colorelem = $chart.siblings('a.chart-style');
-    if (colorelem.length == 1) {
-        bgcolor = colorelem.css('background-color');
-        bordercolor = colorelem.css('border-left-color');
-        borderwidth = parseFloat(colorelem.css('width'));
-    }
-    if (bgcolor === null) bgcolor = 'rgba(3, 169, 244, .4)';
-    if (bordercolor === null) bordercolor = '#03a9f4';
-    if (borderwidth === null || isNaN(borderwidth)) borderwidth = 1;
-
     var chart = new Chart(document.getElementById('blocksChartObj'), {
         type: 'bar',
         data: {
@@ -153,9 +140,9 @@ function generateChart(data) {
                 label: 'Blocks',
                 data: values,
                 fill: false,
-                backgroundColor: bgcolor,
-                borderColor: bordercolor,
-                borderWidth: borderwidth
+                backgroundColor: 'rgba(3, 169, 244, .4)',
+                borderColor: '#03a9f4',
+                borderWidth: 1
             }]
         },
         options: {
@@ -177,7 +164,7 @@ function generateChart(data) {
             }
         }
     });
-    $chart.show();
+    $('#blocksChart').show();
     displayedChart = true;
 }
 
@@ -197,14 +184,14 @@ function parseBlock(height, serializedBlock){
     var toGo = lastStats.config.depth - (lastStats.network.height - block.height) + 1;
     if(toGo > 1){
         block.maturity = toGo + ' to go';
-    } 
+    }
     else if(toGo == 1){
         block.maturity = "<i class='fa fa-spinner fa-spin'></i>";
-    } 
+    }
     else if(toGo <= 0){
         block.maturity = "<i class='fa fa-unlock-alt'></i>";
     }
-        
+
     switch (block.orphaned){
         case '0':
             block.status = 'unlocked';
@@ -223,9 +210,12 @@ function parseBlock(height, serializedBlock){
 }
 
 // Get block row element
-function getBlockRowElement(block, jsonString){        
+function getBlockRowElement(block, jsonString){
     function formatBlockLink(hash){
-        return '<a target="_blank" href="' + getBlockchainUrl(hash) + '">' + hash + '</a>';
+        var text = getBlockchainUrl(hash);
+        if(text!="")
+            return '<a target="_blank" href="' + text + '">' + hash + '</a>';
+        return hash;
     }
 
     var blockStatusClasses = {
@@ -233,22 +223,22 @@ function getBlockRowElement(block, jsonString){
         'unlocked': 'unlocked',
         'orphaned': 'orphaned'
     };
-    
+
     var row = document.createElement('tr');
     row.setAttribute('data-json', jsonString);
     row.setAttribute('data-height', block.height);
-    row.setAttribute('id', 'blockRow' + block.height);
+    row.setAttribute('id', 'blockRow' + block.hash);
     row.setAttribute('title', block.status);
     row.className = blockStatusClasses[block.status];
-                
-    var reward = "";    
+
+    var reward = "";
     if(typeof block.reward == "undefined"){
         reward = "Waiting...";
     }
     else{
         reward = getReadableCoins(block.reward, null, true);
     }
-    
+
     var columns =
         '<td class="col1">' + formatDate(block.time) + '</td>' +
         '<td class="col2">' + reward + '</td>' +
@@ -259,7 +249,7 @@ function getBlockRowElement(block, jsonString){
         '<td class="col7">' + block.maturity + '</td>';
 
     row.innerHTML = columns;
-    
+
     return row;
 }
 
@@ -271,7 +261,7 @@ function renderBlocks(blocksResults){
         var block = parseBlock(blocksResults[i + 1], blocksResults[i]);
         var blockJson = JSON.stringify(block);
 
-        var existingRow = document.getElementById('blockRow' + block.height);
+        var existingRow = document.getElementById('blockRow' + block.hash);
         if (existingRow && existingRow.getAttribute('data-json') !== blockJson){
             $(existingRow).replaceWith(getBlockRowElement(block, blockJson));
         }

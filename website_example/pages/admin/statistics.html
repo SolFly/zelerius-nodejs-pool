@@ -41,7 +41,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Profit (before tx fees) -->
     <div class="col-lg-3 col-sm-4">
         <div class="infoBox hoverExpandEffect">
@@ -54,7 +54,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Registered Addresses -->
     <div class="col-lg-3 col-sm-4">
         <div class="infoBox hoverExpandEffect">
@@ -75,7 +75,7 @@
                 <span class="fa fa-cubes"></span>
             </div>
             <div class="content">
-                <div class="text">Blocks Unlocked</div>
+                <div class="text">Valid Blocks Found</div>
                 <div class="value"><span id="blocksUnlocked">...</span></div>
             </div>
         </div>
@@ -93,7 +93,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Average Luck (shares/diff) -->
     <div class="col-lg-3 col-sm-4">
         <div class="infoBox hoverExpandEffect">
@@ -106,7 +106,7 @@
             </div>
         </div>
     </div>
-        
+
 </div>
 
 <!-- Javascript -->
@@ -124,7 +124,7 @@ function formatLuck(difficulty, shares) {
     }
     else{
         return '<span class="luckBad">' + percent + '%</span>';
-    }	
+    }
 }
 
 function getStats(promptPassword) {
@@ -138,7 +138,7 @@ function getStats(promptPassword) {
     $.ajax({
         url: api + '/admin_stats',
         data: {password: password},
-	dataType: 'json',
+        dataType: 'json',
         cache: 'false',
         success: function(data) {
             docCookies.setItem('password', password, Infinity);

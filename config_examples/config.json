@@ -1,16 +1,16 @@
 {
-    "poolHost": "your.pool.host",
+    "poolHost": "127.0.0.1",
 
-    "coin": "digitalnote",
-    "symbol": "XDN",
-    "coinUnits": 100000000,
+    "coin": "zelerius",
+    "symbol": "ZLS",
+    "coinUnits": 1000000000000,
     "coinDecimalPlaces": 4,
-    "coinDifficultyTarget": 240,
+    "coinDifficultyTarget": 30,
 
-    "daemonType": "default",
+    "daemonType": "bytecoin_v3",
     "cnAlgorithm": "cryptonight",
-    "cnVariant": 0,
-    "cnBlobType": 0,
+    "cnVariant": 1,
+    "cnBlobType": 2,
 
     "logging": {
         "files": {
@@ -27,33 +27,36 @@
     "poolServer": {
         "enabled": true,
         "clusterForks": "auto",
-        "poolAddress": "** Your pool wallet address **",
+        "poolAddress": "ZL4PNxi9hp4YfVnZ47faiJHDgv9sWqQEvNFFNMs2UjVYWXg7NFoCQUB5CMZk7sKtpQDZh6xxNeH4rQUd1kdxv6Kw1kQtymMdh",
         "intAddressPrefix": null,
         "blockRefreshInterval": 1000,
-        "minerTimeout": 900,
-        "sslCert": "./cert.pem",
-        "sslKey": "./privkey.pem",
-        "sslCA": "./chain.pem",
+        "minerTimeout": 600,
+        "sslCert": "./ssl/certificate.cer",
+        "sslKey": "./ssl/private_key.key",
+        "sslCA": "./ssl/INTERMEDIATE.cer",
         "ports": [
             {
                 "port": 3333,
-                "difficulty": 5000,
+                "difficulty": 1000,
                 "desc": "Low end hardware"
             },
             {
                 "port": 4444,
                 "difficulty": 15000,
-                "desc": "Mid range hardware"
+                "desc": "Mid range hardware",
+		"hidden": true
             },
             {
                 "port": 5555,
                 "difficulty": 25000,
-                "desc": "High end hardware"
+                "desc": "High end hardware",
+		"hidden": true
             },
             {
                 "port": 7777,
                 "difficulty": 500000,
-                "desc": "Cloud-mining / NiceHash"
+                "desc": "Cloud-mining / NiceHash",
+		"hidden": true
             },
             {
                 "port": 8888,
@@ -65,15 +68,16 @@
                 "port": 9999,
                 "difficulty": 20000,
                 "desc": "SSL connection",
-                "ssl": true
+                "ssl": true,
+		"hidden": false
             }
         ],
         "varDiff": {
             "minDiff": 100,
             "maxDiff": 100000000,
-            "targetTime": 60,
-            "retargetTime": 30,
-            "variancePercent": 30,
+            "targetTime": 20,
+            "retargetTime": 15,
+            "variancePercent": 15,
             "maxJump": 100
         },
         "paymentId": {
@@ -106,26 +110,27 @@
 
     "payments": {
         "enabled": true,
-        "interval": 1800,
+        "interval": 300,
         "maxAddresses": 50,
-        "mixin": 5,
+        "mixin": 1,
         "priority": 0,
-        "transferFee": 50000000,
-        "dynamicTransferFee": true,
+        "transferFee": 1000000000,
         "minerPayFee" : true,
-        "minPayment": 1000000000,
+        "minPayment": 1000000000000,
         "maxPayment": null,
-        "maxTransactionAmount": 0,
-        "denomination": 1000000000
+        "maxTransactionAmount": 2000000000000000,
+        "denomination": 1000000000,
+        "walletUserPassword": "user:password"
     },
 
     "blockUnlocker": {
         "enabled": true,
         "interval": 30,
-        "depth": 10,
-        "poolFee": 0.8,
-        "devDonation": 0.2,
-        "networkFee": 0.0
+        "depth": 20,
+        "poolFee": 1,
+        "devDonation": 0.0,
+        "networkFee": 0.0,
+        "fixBlockHeightRPC": true
     },
 
     "api": {
@@ -136,18 +141,18 @@
         "port": 8117,
         "blocks": 30,
         "payments": 30,
-        "password": "your_password",
-        "ssl": false,
+        "password": "password-zelerius",
+        "ssl": true,
         "sslPort": 8119,
-        "sslCert": "./cert.pem",
-        "sslKey": "./privkey.pem",
-        "sslCA": "./chain.pem",
+        "sslCert": "./ssl/certificate.cer",
+        "sslKey": "./ssl/private_key.key",
+        "sslCA": "./ssl/INTERMEDIATE.cer",
         "trustProxyIP": true
     },
 
     "daemon": {
         "host": "127.0.0.1",
-        "port": 42081
+        "port": 48081
     },
 
     "wallet": {
@@ -160,7 +165,7 @@
         "port": 6379,
         "auth": null,
         "db": 0,
-        "cleanupInterval": 15
+        "cleanupInterval": 90
     },
 
     "notifications": {
@@ -237,15 +242,15 @@
             "blocks": "/blocks"
         }
     },
-    
+
     "monitoring": {
         "daemon": {
             "checkInterval": 60,
-            "rpcMethod": "getblockcount"
+            "rpcMethod": "get_status"
         },
         "wallet": {
             "checkInterval": 60,
-            "rpcMethod": "getbalance"
+            "rpcMethod": "get_balance"
         }
     },
 
@@ -298,12 +303,6 @@
                 "enabled": true,
                 "updateInterval": 180,
                 "stepInterval": 1800,
-                "maximumPeriod": 86400
-            },
-            "worker_hashrate": {
-                "enabled": true,
-                "updateInterval": 60,
-                "stepInterval": 60,
                 "maximumPeriod": 86400
             },
             "payments": {

@@ -21,7 +21,8 @@
         "nodemailer-sendmail-transport": "*",
         "redis": "*",
         "socket.io": "^2.1.1",
-        "time-ago": "*"
+        "time-ago": "*",
+        "xmlhttprequest": "^1.8.0"
     },
     "engines": {
         "node": ">=4.0"

@@ -228,7 +228,10 @@ function getReadableCoins(coins, digits, withoutSymbol){
 
 // Format payment link
 function formatPaymentLink(hash){
-    return '<a target="_blank" href="' + getTransactionUrl(hash) + '">' + hash + '</a>';
+    var text = getTransactionUrl(hash);
+    if(text!="")
+        return '<a target="_blank" href="' + text + '">' + hash + '</a>';
+    return hash;
 }
 
 // Format difficulty

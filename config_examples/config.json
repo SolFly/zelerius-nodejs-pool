@@ -7,7 +7,7 @@
     "coinDecimalPlaces": 4,
     "coinDifficultyTarget": 30,
 
-    "daemonType": "bytecoin_v3",
+    "daemonType": "zelerius",
     "cnAlgorithm": "cryptonight",
     "cnVariant": 1,
     "cnBlobType": 2,
@@ -110,7 +110,7 @@
 
     "payments": {
         "enabled": true,
-        "interval": 300,
+        "interval": 1500,
         "maxAddresses": 50,
         "mixin": 1,
         "priority": 0,
@@ -141,7 +141,7 @@
         "port": 8117,
         "blocks": 30,
         "payments": 30,
-        "password": "password-zelerius",
+        "password": "pass",
         "ssl": true,
         "sslPort": 8119,
         "sslCert": "./ssl/certificate.cer",

@@ -68,7 +68,7 @@
                 "port": 9999,
                 "difficulty": 20000,
                 "desc": "SSL connection",
-                "ssl": true,
+                "ssl": false,
 		"hidden": false
             }
         ],
@@ -142,7 +142,7 @@
         "blocks": 30,
         "payments": 30,
         "password": "pass",
-        "ssl": true,
+        "ssl": false,
         "sslPort": 8119,
         "sslCert": "./ssl/certificate.cer",
         "sslKey": "./ssl/private_key.key",

@@ -27,10 +27,10 @@
                     <canvas id="chart_hashrate"></canvas>
                     <a class="chart-style"></a>
                 </div>
-            </div> 
+            </div>
 	</div>
     </div>
-    
+
     <!-- Payments -->
     <div class="yourStats push-up-20">
         <h4><i class="fa fa-money"></i>&nbsp; <span tkey="payments">Payments</span></h4>
@@ -48,7 +48,7 @@
                     <a class="chart-style"></a>
                 </div>
             </div>
-        </div>       
+        </div>
     </div>
 
     <!-- Workers -->
@@ -74,7 +74,7 @@
             </table>
         </div>
     </div>
-    
+
     <!-- Payments -->
     <h4 class="yourStats push-up-20"><i class="fa fa-money"></i>&nbsp; <span tkey="paymentsHistory">Payments History</span></h4>
     <div class="yourStats card">
@@ -94,7 +94,7 @@
             </table>
         </div>
     </div>
-    
+
     <p class="yourStats text-center push-up-10">
         <button type="button" class="btn btn-default" id="loadMorePayments"><span tkey="loadMore">Load More</span></button>
     </p>
@@ -136,7 +136,7 @@ var addressTimeout;
 
 function fetchAddressStats(longpoll){
     var address = getCurrentAddress();
-    
+
     xhrAddressPoll = $.ajax({
         url: api + '/stats_address',
         data: {
@@ -145,7 +145,7 @@ function fetchAddressStats(longpoll){
         },
         dataType: 'json',
         cache: 'false',
-        success: function(data){                    
+        success: function(data){
             if (!data.stats){
                 $('.yourStats, .yourWorkers, .userChart').hide();
                 $('#addressError').text(data.error).show();
@@ -181,17 +181,17 @@ function fetchAddressStats(longpoll){
             var userRoundScore = parseFloat(data.stats.roundScore || 0);
             var poolRoundScore = parseFloat(lastStats.pool.roundScore || 0);
             var lastReward = parseFloat(lastStats.lastblock.reward || 0);
-	    
+
             var poolFee = lastStats.config.fee;
-            if (Object.keys(lastStats.config.donation).length) {
+            /*if (Object.keys(lastStats.config.donation).length) {
                 var totalDonation = 0;
                 for(var i in lastStats.config.donation) {
                     totalDonation += lastStats.config.donation[i];
                 }
                 poolFee += totalDonation;
-            }
+            }*/
 	    var transferFee = lastStats.config.transferFee;
-	    
+
             var share_pct = userRoundHashes * 100 / poolRoundHashes;
             var score_pct = userRoundScore * 100 / poolRoundScore;
             updateText('yourRoundShareProportion', Math.round(share_pct * 1000) / 1000);
@@ -204,14 +204,14 @@ function fetchAddressStats(longpoll){
             if (transferFee) payoutEstimate = payoutEstimate - transferFee;
 	    if (payoutEstimate < 0) payoutEstimate = 0;
 	    updateText('yourPayoutEstimate', getReadableCoins(payoutEstimate));
-	    
+
             renderPayments(data.payments);
-	    
+
             if (data.workers && data.workers.length > 0) {
                 renderWorkers(data.workers);
                 $('.yourWorkers').show();
             }
-	    
+
             $('.yourStats').show();
 
             if (data.charts) {
@@ -221,14 +221,14 @@ function fetchAddressStats(longpoll){
                     createCharts();
                     chartsInitialized = true;
                 }
-            }	    
-	    
+            }
+
             fetchAddressStats(true);
         },
         error: function(e){
             if (e.statusText === 'abort') return;
             $('#addressError').text('Connection error').show();
-        
+
             if (addressTimeout) clearTimeout(addressTimeout);
             addressTimeout = setTimeout(function(){
                 fetchAddressStats(false);
@@ -240,10 +240,10 @@ function fetchAddressStats(longpoll){
 // Click on lookup button
 $('#lookUp').click(function(){
     var address = $('#yourStatsInput').val().trim();
-    
+
     if (getCurrentAddress() != address) {
         docCookies.setItem('mining_address', address, Infinity);
-    
+
         var urlWalletAddress = location.search.split('wallet=')[1] || 0;
         if (urlWalletAddress){
             window.location.href = "/#worker_stats";
@@ -267,12 +267,12 @@ $('#lookUp').click(function(){
 
     $('#lookUp > span:last-child').hide();
     $('#lookUp > span:first-child').show();
-    
+
     if (!address){
         $('#yourStatsInput').focus();
         return;
     }
-    
+
     fetchAddressStats(false);
 });
 
@@ -381,21 +381,21 @@ function getGraphData(rawData, fixValueToCoins) {
         names: [],
         values: []
     };
-    
+
     if(rawData) {
         for (var i = 0, xy; xy = rawData[i]; i++) {
             graphData.names.push(new Date(xy[0]*1000).toLocaleString());
             graphData.values.push(xy[1]);
         }
     }
-    
+
     return graphData;
 }
 
 /**
  * Workers report
  **/
- 
+
 // Get worker row id
 function getWorkerRowId(workerName){
     var id = btoa(workerName);
@@ -441,16 +441,16 @@ $('#workersReport th.sort').on('click', sortTable);
 // Sort workers
 function sortWorkers(a, b){
     var aName = a.name.toLowerCase();
-    var bName = b.name.toLowerCase(); 
+    var bName = b.name.toLowerCase();
     return ((aName < bName) ? -1 : ((aName > bName) ? 1 : 0));
 }
 
 // Render workers list
 function renderWorkers(workersData){
     workersData = workersData.sort(sortWorkers);
-    
+
     var $workersRows = $('#workersReport_rows');
-    
+
     for (var i = 0; i < workersData.length; i++){
         var existingRow = document.getElementById('workerRow_' + getWorkerRowId(workersData[i].name));
         if (!existingRow){
@@ -466,7 +466,7 @@ function renderWorkers(workersData){
 	if (Date.now()/1000 - parseInt(worker.lastShare) > 2 * 86400) continue;
         if (!have_avg_hr && 'hashrate_1h' in worker) have_avg_hr = true;
         var workerJson = JSON.stringify(worker);
-        var existingRow = document.getElementById('workerRow_' + getWorkerRowId(worker.name));    
+        var existingRow = document.getElementById('workerRow_' + getWorkerRowId(worker.name));
         if (existingRow && existingRow.getAttribute('data-json') !== workerJson){
             $(existingRow).replaceWith(getWorkerRowElement(worker, workerJson));
         }
@@ -574,10 +574,10 @@ function renderPayments(paymentsResults){
                 $paymentsRows.append(paymentElement);
             }
         }
-    
+
         summaryData.count ++;
         summaryData.amount += parseInt(payment.amount);
-	
+
         var summaryJson = JSON.stringify(summaryData);
         var summaryElement = getSummaryRowElement(summaryData, summaryJson);
 

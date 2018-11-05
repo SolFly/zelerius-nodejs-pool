@@ -15,7 +15,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Blocks Found -->
     <div class="col-lg-3 col-sm-4">
         <div class="infoBox hoverExpandEffect">
@@ -28,7 +28,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Blocks Found Every -->
     <div class="col-lg-3 col-sm-4">
         <div class="infoBox hoverExpandEffect">
@@ -41,7 +41,7 @@
             </div>
         </div>
     </div>
-        
+
     <!-- Current Effort -->
     <div class="col-lg-3 col-sm-4">
         <div class="infoBox hoverExpandEffect">
@@ -54,7 +54,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Network Hash Rate -->
     <div class="col-lg-3 col-sm-4">
         <div class="infoBox hoverExpandEffect">
@@ -67,7 +67,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Difficulty -->
     <div class="col-lg-3 col-sm-4">
         <div class="infoBox hoverExpandEffect">
@@ -80,7 +80,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Blockchain Height -->
     <div class="col-lg-3 col-sm-4">
         <div class="infoBox hoverExpandEffect">
@@ -119,7 +119,7 @@
             </div>
         </div>
     </div>
-        
+
     <!-- Pool Fee -->
     <div class="col-lg-3 col-sm-4">
         <div class="infoBox hoverExpandEffect">
@@ -132,7 +132,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Minimum Payout -->
     <div class="col-lg-3 col-sm-4">
         <div class="infoBox hoverExpandEffect">
@@ -145,7 +145,7 @@
             </div>
         </div>
     </div>
-            
+
     <!-- Payment Interval -->
     <div class="col-lg-3 col-sm-4">
         <div class="infoBox hoverExpandEffect">
@@ -169,7 +169,7 @@
             </div>
         </div>
     </div>
-    
+
 </div>
 
 <!-- Pool Charts -->
@@ -180,8 +180,8 @@
             <div class="chart">
                 <canvas id="chart_hashrate"></canvas>
                 <a class="chart-style"></a>
-            </div> 
-        </div>        
+            </div>
+        </div>
     </div>
     <div class="col-sm-6 poolChart">
         <div class="card">
@@ -189,7 +189,7 @@
             <div class="chart">
                 <canvas id="chart_diff"></canvas>
                 <a class="chart-style"></a>
-            </div> 
+            </div>
         </div>
     </div>
     <div class="col-sm-6 poolChart">
@@ -198,18 +198,18 @@
             <div class="chart">
                 <canvas id="chart_miners"></canvas>
                 <a class="chart-style"></a>
-            </div> 
-        </div> 
-    </div>    
+            </div>
+        </div>
+    </div>
     <div class="col-sm-6 poolChart">
         <div class="card">
             <h4><span tkey="workers">Workers</span></h4>
             <div class="chart">
                 <canvas id="chart_workers"></canvas>
                 <a class="chart-style"></a>
-            </div> 
-        </div> 
-    </div>    
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- Javascript -->
@@ -229,7 +229,7 @@ currentPage = {
     },
     update: function(){
         $('#networkLastBlockFound').timeago('update', new Date(lastStats.lastblock.timestamp * 1000).toISOString());
-        
+
         updateText('networkHashrate', getReadableHashRateString(lastStats.network.difficulty / lastStats.config.coinDifficultyTarget) + '/sec');
         updateText('networkDifficulty', formatNumber(lastStats.network.difficulty.toString(), ' '));
         updateText('blockchainHeight', formatNumber(lastStats.network.height.toString(), ' '));
@@ -244,7 +244,7 @@ currentPage = {
 
         updateText('poolHashrate', getReadableHashRateString(lastStats.pool.hashrate) + '/sec');
         updateText('blocksTotal', lastStats.pool.totalBlocks.toString());
-        
+
         var hashPower = lastStats.pool.hashrate / (lastStats.network.difficulty / lastStats.config.coinDifficultyTarget) * 100;
         updateText('hashPower', hashPower.toFixed(2) + '%');
 
@@ -260,13 +260,13 @@ currentPage = {
         updateText('poolWorkers', lastStats.pool.workers.toString());
 
         var totalFee = lastStats.config.fee;
-        if (Object.keys(lastStats.config.donation).length) {
+        /*if (Object.keys(lastStats.config.donation).length) {
             var totalDonation = 0;
             for(var i in lastStats.config.donation) {
                 totalDonation += lastStats.config.donation[i];
             }
             totalFee += totalDonation;
-        }
+        }*/
         updateText('poolFee', (totalFee > 0 && totalFee != 100 ? floatToString(totalFee) : (totalFee == 100 ? '100' : '0')) + '%');
 
         updateText('paymentsInterval', getReadableTime(lastStats.config.paymentsInterval));
@@ -385,7 +385,7 @@ function getGraphData(rawData) {
             graphData.names.push(new Date(xy[0]*1000).toLocaleString());
             graphData.values.push(xy[1]);
         }
-    }        
+    }
     return graphData;
 }
 </script>

@@ -17,7 +17,7 @@
                 <div id="fixedDiff"><i class="fa fa-wrench"></i> <span tkey="fixedDiff">Difficulty locking</span>: <span><u tkey="address">address</u><span id="fixedDiffSeparator">+</span><u tkey="addrDiff">diff</u></span></div>
             </div>
         </div>
-	    
+
         <h4 class="push-up-15"><span tkey="password">Password</span></h4>
         <div class="card padding-l-10 padding-r-10">
             <div class="stats">
@@ -50,7 +50,7 @@
             </div>
         </div>
     </div>
-    
+
 </div>
 
 <!-- Mining Applications and Configuration Generator -->
@@ -81,7 +81,7 @@
         <div class="col-sm-6 col-xs-12">
             <div class="input-group push-down-5">
                 <span class="input-group-addon"><i class="fa fa-server"></i></span>
-                <input class="form-control" id="gWorkerName" tplaceholder="workerNameField" type="text" placeholder="Worker_Name" /> 
+                <input class="form-control" id="gWorkerName" tplaceholder="workerNameField" type="text" placeholder="Worker_Name" />
             </div>
         </div>
         <div class="col-sm-6 col-xs-12">
@@ -110,7 +110,7 @@
             </tr>
             </thead>
             <tbody id="miningApps_rows">
-	    
+
 	    <!-- XMR Stak -->
             <tr class="appInfo">
                 <td class="miningAppTitle">XMR Stak</td>
@@ -122,7 +122,7 @@
             <tr class="appConfig">
                 <td colspan="5">
                     <div class="collapse" id="xmrstak">
-		
+
 <pre><code>"pool_list": [
     {
         "pool_address": "<span class="exampleHost">POOL_HOST</span>:<span class="examplePort">PORT</span>",
@@ -140,7 +140,7 @@
                     </div>
                 </td>
             </tr>
-	    
+
 	    <!-- XMRig -->
             <tr class="appInfo">
                 <td class="miningAppTitle">XMRig</td>
@@ -152,7 +152,7 @@
             <tr class="appConfig">
                 <td colspan="5">
                     <div class="collapse" id="xmrig">
-		
+
 <pre><code>"pools": [
     {
         "url": "<span class="exampleHost">POOL_HOST</span>:<span class="examplePort">PORT</span>",
@@ -160,7 +160,7 @@
         "pass": "<span class="examplePassword">YOUR_WORKER_NAME</span>",
         "keepalive": true,
         "nicehash": false,
-        "variant": 1
+        "variant": <span class="variant">variantCode</span>
     }
 ],</code></pre>
 
@@ -179,7 +179,7 @@
             <tr class="appConfig">
                 <td colspan="5">
                     <div class="collapse" id="xmrig-amd">
-		
+
 <pre><code>"pools": [
     {
         "url": "<span class="exampleHost">POOL_HOST</span>:<span class="examplePort">PORT</span>",
@@ -187,7 +187,7 @@
         "pass": "<span class="examplePassword">YOUR_WORKER_NAME</span>"
         "keepalive": true,
         "nicehash": false,
-        "variant": 1
+        "variant": <span class="variant">variantCode</span>
     }
 ],</code></pre>
 
@@ -206,7 +206,7 @@
             <tr class="appConfig">
                 <td colspan="5">
                     <div class="collapse" id="xmrig-nvidia">
-		
+
 <pre><code>"pools": [
     {
         "url": "<span class="exampleHost">POOL_HOST</span>:<span class="examplePort">PORT</span>",
@@ -214,7 +214,7 @@
         "pass": "<span class="examplePassword">YOUR_WORKER_NAME</span>"
         "keepalive": true,
         "nicehash": false,
-        "variant": 1
+        "variant": <span class="variant">variantCode</span>
     }
 ],</code></pre>
 
@@ -233,7 +233,7 @@
             <tr class="appConfig">
                 <td colspan="5">
                     <div class="collapse" id="xmrig-cc">
-		
+
 <pre><code>"pools": [
     {
         "url": "<span class="exampleHost">POOL_HOST</span>:<span class="examplePort">PORT</span>",
@@ -247,7 +247,7 @@
                     </div>
                 </td>
             </tr>
-	    
+
             </tbody>
         </table>
     </div>
@@ -292,6 +292,9 @@ currentPage = {
         updateTextClasses('exampleHost', getPoolHost());
         updateText('paymentIdSeparator', lastStats.config.paymentIdSeparator);
         updateText('fixedDiffSeparator', lastStats.config.fixedDiffSeparator);
+
+        updateTextClasses('variant', (lastStats.config.cnVariant == 8) ? 2 : (lastStats.config.cnVariant || 0) );
+
         if (!lastStats.config.fixedDiffEnabled) $('#fixedDiff').hide();
 
         var coin = lastStats.config.coin.toLowerCase() || null;
@@ -324,9 +327,12 @@ currentPage = {
             } else if (cnVariant === 3) {
                 algorithm = 'Cryptonight (Stellite v7)';
                 xmrstakAlgo = 'cryptonight_v7_stellite';
-	    } else if (cnVariant === 4) {
+	          } else if (cnVariant === 4) {
                 algorithm = 'Cryptonight Fast (Masari v7)';
                 xmrstakAlgo = 'cryptonight_v7_masari';
+            } else if (cnVariant === 8) {
+                algorithm = 'Cryptonight Zelerius (v8)';
+                xmrstakAlgo = 'cryptonight_v8';
             } else {
                 algorithm = 'Cryptonight (Original)';
                 xmrstakAlgo = 'cryptonight';
@@ -369,7 +375,7 @@ $('#generateConf').click(function() {
     var address = $('#gAddress').val().replace(/\s+/g, '').trim();
     var paymentID = $('#gPaymentID').val().replace(/\s+/g, '').trim();
     var difficulty = parseInt($('#gDifficulty').val().replace(/\s+/g, '').trim());
-    
+
     var login = address ? address : 'YOUR_WALLET_ADDRESS';
     if (paymentID) login = login + lastStats.config.paymentIdSeparator + paymentID;
     if (difficulty) login = login + lastStats.config.fixedDiffSeparator + difficulty;
@@ -379,6 +385,6 @@ $('#generateConf').click(function() {
     var workerName = $('#gWorkerName').val().replace(/\s+/g, '').trim();
 
     var password = workerName ? workerName : 'x';
-    updateTextClasses('examplePassword', password);    
+    updateTextClasses('examplePassword', password);
 });
 </script>

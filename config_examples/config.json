@@ -11,6 +11,12 @@
     "cnAlgorithm": "cryptonight",
     "cnVariant": 1,
     "cnBlobType": 2,
+    "V2": 1,
+    "V3": 2,
+    "V4": 3,
+    "V5": 64000,
+    "V6": 265000,
+    "V7": -1,
 
     "logging": {
         "files": {

@@ -186,11 +186,9 @@ Explanation for each field:
 /* Set Cryptonight algorithm settings.
    Zelerius Network
    algorithm: cryptonight
-   variants for "cryptonight": 1 (variant 1 (v7))
    blob types: 2
    */
 "cnAlgorithm": "cryptonight",
-"cnVariant": 1,
 "cnBlobType": 2,
 
 /* Logging */

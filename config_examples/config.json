@@ -9,7 +9,6 @@
 
     "daemonType": "zelerius",
     "cnAlgorithm": "cryptonight",
-    "cnVariant": 1,
     "cnBlobType": 2,
     "V2": 1,
     "V3": 2,

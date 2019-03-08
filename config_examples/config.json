@@ -57,7 +57,7 @@
                 "port": 9999,
                 "difficulty": 22222,
                 "desc": "SSL connection",
-                "ssl": true,
+                "ssl": false,
                 "hidden": true
             }
         ],

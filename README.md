@@ -351,8 +351,6 @@ Explanation for each field:
     /* Block depth required for a block to unlocked/mature. Must be greater than 10*/
     "depth": 20,
     "poolFee": 0.8, // 0.8% pool fee (1% total fee total including donations)
-    /* fixBlockHeightRPC always true */
-    "fixBlockHeightRPC": true
 },
 
 /* AJAX API used for front-end website. */

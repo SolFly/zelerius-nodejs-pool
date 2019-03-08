@@ -839,6 +839,55 @@ table th.sort:hover{
   }
 }
 
+#profitPayments td {
+    vertical-align: middle;
+    font-family: 'Inconsolata', monospace;
+    font-size: 0.95em;
+}
+#profitPayments table .col1,
+#profitPayments table .col2,
+#profitPayments table .col3,
+#profitPayments table .col3,
+#profitPayments table .col4,
+#profitPayments table .col5,
+#profitPayments table .col6,
+#profitPayments table .col7,
+#profitPayments table .col8 {
+    text-align: center;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: visible;
+}  
+#profitPayments table .summary {
+  font-weight: 700;
+}
+#profitPayments table  {
+    table-layout: fixed;
+    width: 100%;
+} 
+#profitPayments table th {
+    white-space: nowrap;
+}
+@media (min-width: 768px) {
+    #profitPayments table  {
+        table-layout:fixed;
+         width: 100%;
+    }  
+    #profitPayments table th {
+        white-space: nowrap;
+    }
+    #profitPayments table .col1,
+    #profitPayments table .col2,
+    #profitPayments table .col3,
+    #profitPayments table .col4,
+    #profitPayments table .col5,
+    #profitPayments table .col6,
+    #profitPayments table .col7,
+    #profitPayments table .col8 {
+         width: 100%;
+    }
+}
+
 /* Pool Blocks */
 #blocksStats  {
   margin-top: 20px;

@@ -1,8 +1,8 @@
 {
     "name": "zelerius-nodejs-pool",
-    "version": "2.0.2",
+    "version": "2.0.3",
     "license": "GPL-2.0",
-    "author": "Daniel Vandal (Mod for Zelerius Network)",
+    "author": "Daniel Vandal (Vic. for Zelerius Network)",
     "repository": {
         "type": "git",
         "url": "https://github.com/zelerius/zelerius-nodejs-pool"
@@ -13,7 +13,7 @@
         "bignum": "*",
         "cli-color": "*",
         "cryptoforknote-util": "git://github.com/zelerius/node-cryptoforknote-util.git",
-        "cryptonight-hashing": "git://github.com/MoneroOcean/node-cryptonight-hashing.git",
+        "cryptonight-hashing": "git://github.com/zelerius/node-cryptonight-hashing.git",
         "dateformat": "*",
         "mailgun.js": "*",
         "node-telegram-bot-api": "*",

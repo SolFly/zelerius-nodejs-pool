@@ -1,4 +1,4 @@
-var api = "https://yourpool.yourpool:8119";
+var api = "yourPoolWebSite:PORT";
 
 var email = "@";
 var telegram = "";

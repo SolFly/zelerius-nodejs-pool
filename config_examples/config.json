@@ -15,7 +15,7 @@
     "V4": 3,
     "V5": 64000,
     "V6": 265000,
-    "V7": -1,
+    "V7": 534800,
     "V8": -1,
 
     "logging": {
@@ -85,7 +85,7 @@
         },
         "banning": {
             "enabled": true,
-            "time": 600,
+            "time": 500,
             "invalidPercent": 25,
             "checkThreshold": 30
         },

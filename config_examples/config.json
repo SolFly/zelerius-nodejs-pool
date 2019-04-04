@@ -35,7 +35,7 @@
         "clusterForks": "auto",
         "poolAddress": "ZL4PNxi9hp4YfVnZ47faiJHDgv9sWqQEvNFFNMs2UjVYWXg7NFoCQUB5CMZk7sKtpQDZh6xxNeH4rQUd1kdxv6Kw1kQtymMdh",
         "intAddressPrefix": null,
-        "blockRefreshInterval": 1000,
+        "blockRefreshInterval": 100,
         "minerTimeout": 500,
         "sslCert": "./ssl/certificate.cer",
         "sslKey": "./ssl/private_key.key",
